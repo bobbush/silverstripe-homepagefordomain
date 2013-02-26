@@ -6,28 +6,17 @@ class HomepageForDomainExtension extends DataExtension {
 	 */
 	public static $write_homepage_map = true;
 
-	public function extraStatics() {
-		return array(
-			'db' => array(
+	static $db = array(
 				"HomepageForDomain" => "Varchar(100)",
-			)
-		);
-	}
+	);
 
-	public function updateSettingsFields(&$fields) {
+	public function updateSettingsFields(FieldList $fields) {
 		$fields->addFieldsToTab("Root.Settings", array(
 			new LiteralField(
-				"HomepageForDomainInfo", 
-				"<p>" . 
-					_t('SiteTree.NOTEUSEASHOMEPAGE', 
-					"Use this page as the 'home page' for the following domains: 
-					(separate multiple domains with commas)") .
-				"</p>"
-			),
+				"HomepageForDomainInfo", "Use this page as the 'home page' for the following domains: 
+					(separate multiple domains with commas)"),
 			new TextField(
-				"HomepageForDomain",
-				_t('SiteTree.HOMEPAGEFORDOMAIN', "Domain(s)", PR_MEDIUM, 'Listing domains that should be used as homepage')
-			)
+				"HomepageForDomain",'Listing domains that should be used as homepage')
 		));
 	}
 
@@ -46,9 +35,6 @@ class HomepageForDomainExtension extends DataExtension {
 		}
 	}
 
-	public function updateFieldLabels($labels) {
-		$labels['HomepageForDomain'] = _t('SiteTree.HomepageForDomain', 'Hompage for this domain');
-	}
 
 	/**
 	 * @return Array
